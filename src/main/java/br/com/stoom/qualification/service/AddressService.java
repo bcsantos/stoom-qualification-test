@@ -1,16 +1,16 @@
 package br.com.stoom.qualification.service;
 
-import br.com.stoom.qualification.dto.AddressRequestDTO;
-import br.com.stoom.qualification.dto.AddressResponseDTO;
+import br.com.stoom.qualification.model.AddressRequest;
+import br.com.stoom.qualification.model.AddressResponse;
 import br.com.stoom.qualification.entity.Address;
+import br.com.stoom.qualification.exception.AddressNotFoundException;
 import br.com.stoom.qualification.repository.AddressRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,23 +19,30 @@ public class AddressService {
     @Autowired
     private AddressRepository repository;
 
-    private final ModelMapper modelMapper = new ModelMapper();
-
-
-    public List<AddressResponseDTO> findAll() {
-        return repository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    private Address find(UUID id) {
+        return repository.findById(id).orElseThrow(AddressNotFoundException::new);
     }
 
-    public ResponseEntity<AddressResponseDTO> create(AddressRequestDTO addressRequestDTO) {
-        return new ResponseEntity<>(toDTO(repository.save(toEntity(addressRequestDTO))), HttpStatus.CREATED);
+    public List<AddressResponse> findAll() {
+        return repository.findAll().stream().map(Address::toResponse).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    private Address toEntity(AddressRequestDTO addressRequestDTO) {
-        return modelMapper.map(addressRequestDTO, Address.class);
+    public AddressResponse findByID(UUID id) {
+        return find(id).toResponse();
     }
 
-    private AddressResponseDTO toDTO(Address address) {
-        return modelMapper.map(address, AddressResponseDTO.class);
+    public AddressResponse create(AddressRequest request) {
+        return repository.save(Address.fromRequest(request)).toResponse();
     }
 
+    public AddressResponse update(UUID id, AddressRequest request) {
+        find(id);
+        var address = Address.fromRequest(request);
+        address.setId(id);
+        return repository.save(address).toResponse();
+    }
+
+    public void delete(UUID id) {
+        repository.deleteById(id);
+    }
 }

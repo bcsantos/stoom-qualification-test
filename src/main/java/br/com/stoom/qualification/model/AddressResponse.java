@@ -1,14 +1,18 @@
-package br.com.stoom.qualification.dto;
+package br.com.stoom.qualification.model;
 
+import br.com.stoom.qualification.entity.Address;
+import br.com.stoom.qualification.exception.AddressNotFoundException;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 @Builder(toBuilder = true)
-public class AddressResponseDTO {
+public class AddressResponse {
 
     private UUID id;
 
