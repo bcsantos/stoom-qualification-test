@@ -1,6 +1,6 @@
 CREATE TABLE public.address (
 	id uuid NOT NULL,
-	street_name varchar(2000) NOT NULL,
+	street_name varchar(500) NOT NULL,
 	"number" varchar (100) NOT NULL,
 	complement varchar(500),
 	neighbourhood varchar(100) NOT NULL,

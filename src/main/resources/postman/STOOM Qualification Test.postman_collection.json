@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "6bd2b9b0-57c8-4324-a58d-22c3e9ec8b04",
+		"name": "STOOM Qualification Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"city\": \"São Paulo\",\r\n  \"complement\": \"Apto 702\",\r\n  \"country\": \"Brasil\",\r\n  \"latitude\": \"aaa\",\r\n  \"longitude\": \"bbb\",\r\n  \"neighbourhood\": \"Santa Cruz\",\r\n  \"number\": \"115\",\r\n  \"state\": \"SP\",\r\n  \"streetName\": \"R. Madre Rita Amada de Jesus\",\r\n  \"zipcode\": \"04721150\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/stoom/address",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stoom",
+						"address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"city\": \"No clue\",\r\n  \"country\": \"Brasil\",\r\n  \"latitude\": \"lat\",\r\n  \"longitude\": \"long\",\r\n  \"neighbourhood\": \"Ahu\",\r\n  \"number\": \"80\",\r\n  \"state\": \"PR\",\r\n  \"streetName\": \"Rua Abilio Peixoto\",\r\n  \"zipcode\": \"80035260\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/stoom/address/fcc58699-64c0-4c98-a877-1a3b39dc34ac",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stoom",
+						"address",
+						"fcc58699-64c0-4c98-a877-1a3b39dc34ac"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stoom/address",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stoom",
+						"address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "read",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stoom/address/15d15213-332e-434d-a1d3-0b7560fb33300",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stoom",
+						"address",
+						"15d15213-332e-434d-a1d3-0b7560fb33300"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stoom/address/d1a1c09d-42e2-42be-93a6-16ef51b8185a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stoom",
+						"address",
+						"d1a1c09d-42e2-42be-93a6-16ef51b8185a"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

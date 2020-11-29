@@ -22,7 +22,6 @@ public class AddressController {
 
     @PostMapping
     public ResponseEntity<AddressResponse> create(@RequestBody AddressRequest request) {
-        // TODO: Try/Catch to return a proper response in case of error
         return new ResponseEntity<>(addressService.create(request), HttpStatus.CREATED);
     }
 
@@ -43,7 +42,7 @@ public class AddressController {
     // Update
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<AddressResponse> update(@PathVariable("id") String id, @RequestBody AddressRequest request) {
+    public ResponseEntity<AddressResponse> update(@PathVariable String id, @RequestBody AddressRequest request) {
         return ResponseEntity.ok(addressService.update(UUID.fromString(id), request));
     }
 

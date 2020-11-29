@@ -4,7 +4,6 @@ import br.com.stoom.qualification.model.AddressRequest;
 import br.com.stoom.qualification.model.AddressResponse;
 import lombok.*;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.annotation.Transient;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,14 +42,16 @@ public class Address {
     private String longitude;
 
 
-    @Transient
-    private static final ModelMapper modelMapper = new ModelMapper();
+    //@Transient
+    //private static final ModelMapper modelMapper = new ModelMapper();
 
     public static Address fromRequest(AddressRequest request) {
+        final ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(request, Address.class);
     }
 
     public AddressResponse toResponse() {
+        final ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(this, AddressResponse.class);
     }
 }
