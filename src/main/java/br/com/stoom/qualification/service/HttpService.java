@@ -1,4 +1,4 @@
-package br.com.stoom.qualification.external;
+package br.com.stoom.qualification.service;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Slf4j
 @Service
-public class HttpCaller {
+public class HttpService {
 
     OkHttpClient okHttpClient = new OkHttpClient();
 

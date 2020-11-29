@@ -2,7 +2,6 @@ package br.com.stoom.qualification.service;
 
 import br.com.stoom.qualification.entity.Address;
 import br.com.stoom.qualification.exception.AddressNotFoundException;
-import br.com.stoom.qualification.external.GoogleGeocodingAPI;
 import br.com.stoom.qualification.model.AddressRequest;
 import br.com.stoom.qualification.model.AddressResponse;
 import br.com.stoom.qualification.repository.AddressRepository;
@@ -21,7 +20,7 @@ public class AddressService {
     private AddressRepository repository;
 
     @Autowired
-    private GoogleGeocodingAPI geocodingAPI;
+    private GoogleGeocodingService geocodingAPI;
 
     private Address find(UUID id) {
         return repository.findById(id).orElseThrow(() -> new AddressNotFoundException(id));

@@ -1,4 +1,4 @@
-package br.com.stoom.qualification.external;
+package br.com.stoom.qualification.service;
 
 import br.com.stoom.qualification.entity.Address;
 import br.com.stoom.qualification.exception.GeocodingException;
@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
 
 @Slf4j
 @Service
-public class GoogleGeocodingAPI {
+public class GoogleGeocodingService {
 
     @Value("${google.api.base-url}")
     private String baseURL;
@@ -26,14 +26,14 @@ public class GoogleGeocodingAPI {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
-    private HttpCaller httpCaller;
+    private HttpService httpService;
 
     public Address updateAddress(Address address) {
         // Query GoogleMaps API
         log.info("Longitude ou Longitude não informadas, consultando Google Maps.");
         var url = buildURL(address);
         log.info("URL: {}", url);
-        var jsonResponse = httpCaller.run(url);
+        var jsonResponse = httpService.run(url);
         if ((jsonResponse == null) || jsonResponse.isEmpty()) {
             throw new GeocodingException();
         }
