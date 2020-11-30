@@ -1,12 +1,12 @@
 # stoom-qualification-test
 Teste de Qualificação Backend STOOM
 
-Pré-requisitos:
+## Pré-requisitos:
 
 1.  Java 11
-2.  Maven 3.6
+2.  Maven 3.6+
 3.  Instalar Docker-compose, Docker, e configurar
-4.  Instalr Lombok (plugin para a IDE)
+4.  Instalar Lombok (plugin para a IDE)
 
-# Documentação e Testes - API
-http://localhost:8080/swagger-ui.html
+## API
+Para documentações e testes da API, acesse: http://localhost:8080/swagger-ui-html
