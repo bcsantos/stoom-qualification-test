@@ -41,7 +41,12 @@ public class AddressService {
 
     public AddressResponse update(UUID id, AddressRequest request) {
         find(id);
-        var address = Address.fromRequest(request);
+        Address address;
+        try {
+            address = Address.fromRequest(request);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro: " + e.getClass().getName());
+        }
         address.setId(id);
         return repository.save(prepareAddress(address)).toResponse();
     }
