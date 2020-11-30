@@ -74,7 +74,7 @@ public class AddressController {
     }
 
     private void validateField(String fieldName, String fieldValue, boolean required, int maxLength) {
-        if (fieldValue == null) {
+        if ((fieldValue == null) || fieldValue.isEmpty()) {
             if (required) {
                 throw new MissingRequiredFieldException(fieldName);
             }
