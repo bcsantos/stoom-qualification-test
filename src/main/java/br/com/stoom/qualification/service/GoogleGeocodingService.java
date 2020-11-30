@@ -30,9 +30,10 @@ public class GoogleGeocodingService {
 
     public Address updateAddress(Address address) {
         // Query GoogleMaps API
-        log.info("Longitude ou Longitude não informadas, consultando Google Maps.");
+        log.info("Either the Longitude or Longitude were not informed, so let's query Google Maps for them.");
         var url = buildURL(address);
         log.info("URL: {}", url);
+        // TODO: Test this with a valid Google Maps API Key - mine had expired.
         var jsonResponse = httpService.run(url);
         if ((jsonResponse == null) || jsonResponse.isEmpty()) {
             throw new GeocodingException();
