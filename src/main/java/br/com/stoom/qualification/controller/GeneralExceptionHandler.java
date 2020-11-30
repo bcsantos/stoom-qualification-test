@@ -1,7 +1,9 @@
 package br.com.stoom.qualification.controller;
 
 import br.com.stoom.qualification.exception.AddressNotFoundException;
+import br.com.stoom.qualification.exception.FieldValueExceededException;
 import br.com.stoom.qualification.exception.GeocodingException;
+import br.com.stoom.qualification.exception.MissingRequiredFieldException;
 import br.com.stoom.qualification.model.ErrorResponse;
 import org.hibernate.exception.ConstraintViolationException;
 import org.postgresql.util.PSQLException;
@@ -23,9 +25,14 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(exception, new ErrorResponse("Invalid id format!"), new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
     }
 
-    @ExceptionHandler(value = {AddressNotFoundException.class, GeocodingException.class, EmptyResultDataAccessException.class})
+    @ExceptionHandler(value = {AddressNotFoundException.class, EmptyResultDataAccessException.class})
     protected ResponseEntity<Object> notFound(RuntimeException exception, WebRequest request) {
         return handleExceptionInternal(exception, new ErrorResponse(exception.getMessage()), new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
+    }
+
+    @ExceptionHandler(value = {GeocodingException.class, MissingRequiredFieldException.class, FieldValueExceededException.class})
+    protected ResponseEntity<Object> badRequest(RuntimeException exception, WebRequest request) {
+        return handleExceptionInternal(exception, new ErrorResponse(exception.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler(value = {ConstraintViolationException.class})

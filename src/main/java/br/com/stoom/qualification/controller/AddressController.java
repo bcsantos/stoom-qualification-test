@@ -1,5 +1,7 @@
 package br.com.stoom.qualification.controller;
 
+import br.com.stoom.qualification.exception.FieldValueExceededException;
+import br.com.stoom.qualification.exception.MissingRequiredFieldException;
 import br.com.stoom.qualification.model.AddressRequest;
 import br.com.stoom.qualification.model.AddressResponse;
 import br.com.stoom.qualification.service.AddressService;
@@ -22,6 +24,7 @@ public class AddressController {
 
     @PostMapping
     public ResponseEntity<AddressResponse> create(@RequestBody AddressRequest request) {
+        validateInputFields(request);
         return new ResponseEntity<>(addressService.create(request), HttpStatus.CREATED);
     }
 
@@ -43,6 +46,7 @@ public class AddressController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<AddressResponse> update(@PathVariable String id, @RequestBody AddressRequest request) {
+        validateInputFields(request);
         return ResponseEntity.ok(addressService.update(UUID.fromString(id), request));
     }
 
@@ -53,5 +57,31 @@ public class AddressController {
     public ResponseEntity<?> delete(@PathVariable String id) {
         addressService.delete(UUID.fromString(id));
         return ResponseEntity.noContent().build();
+    }
+
+
+    private void validateInputFields(AddressRequest request) {
+        validateField("streetName", request.getStreetName(), true, 500);
+        validateField("number", request.getNumber(), true, 100);
+        validateField("complement", request.getComplement(), false, 500);
+        validateField("neighbourhood", request.getNeighbourhood(), true, 100);
+        validateField("city", request.getCity(), true, 100);
+        validateField("state", request.getState(), true, 30);
+        validateField("country", request.getCountry(), true, 50);
+        validateField("zipcode", request.getZipcode(), true, 10);
+        validateField("latitude", request.getLatitude(), false, 50);
+        validateField("longitude", request.getLongitude(), false, 50);
+    }
+
+    private void validateField(String fieldName, String fieldValue, boolean required, int maxLength) {
+        if (fieldValue == null) {
+            if (required) {
+                throw new MissingRequiredFieldException(fieldName);
+            }
+        } else {
+            if (fieldValue.length() > maxLength) {
+                throw new FieldValueExceededException(fieldName, maxLength);
+            }
+        }
     }
 }
